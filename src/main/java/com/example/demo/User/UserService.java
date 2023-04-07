@@ -1,26 +1,38 @@
 package com.example.demo.User;
 
+import com.example.demo.badge.Badge;
+import com.example.demo.badge.BadgeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final BadgeRepository badgeRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, BadgeRepository badgeRepository) {
         this.userRepository = userRepository;
+        this.badgeRepository = badgeRepository;
     }
 
-    public List<User> getAllUsers() {
-        return (List<User>) userRepository.findAll();
+    public List<UserDTO> getAllUsers() {
+        List<User> list = (List<User>) userRepository.findAll();
+        return list.stream().map(User::convertToDTO).toList();
     }
 
-    public void saveUser(User user) {
-        userRepository.save(user);
+    public void saveUser(UserDTO userDTO) {
+        List<Badge> badgesList = new ArrayList<>();
+        userDTO.getBadgesId().forEach(badgeId -> {
+                    Optional<Badge> badgeOptional = badgeRepository.findById(badgeId);
+                    badgeOptional.ifPresent(badgesList::add);
+                }
+        );
+        userRepository.save(userDTO.convertToUser(badgesList));
     }
 
     public void deleteUser(Long id) {

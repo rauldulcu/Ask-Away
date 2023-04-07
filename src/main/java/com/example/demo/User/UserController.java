@@ -18,13 +18,13 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @PostMapping
-    public void saveUser(@RequestBody User user) {
-        userService.saveUser(user);
+    public void saveUser(@RequestBody UserDTO userDTO) {
+        userService.saveUser(userDTO);
     }
 
     @DeleteMapping("/{id}")
