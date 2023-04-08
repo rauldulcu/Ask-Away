@@ -17,13 +17,13 @@ public class PostController {
     }
 
     @GetMapping
-    public List<Post> getAllPosts() {
+    public List<PostDTO> getAllPosts() {
         return postService.getAllPosts();
     }
 
     @PostMapping
-    public void savePost(@RequestBody Post post) {
-        postService.savePost(post);
+    public void savePost(@RequestBody PostDTO postDTO) {
+        postService.savePost(postDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -33,7 +33,8 @@ public class PostController {
     }
 
     @PutMapping
-    public void updatePost(@RequestBody Post post) {
-        postService.updatePost(post);
+    public void updatePost(@RequestBody PostDTO postDTO) {
+        postService.updatePost(postDTO);
     }
+
 }

@@ -25,8 +25,7 @@ public class BadgeService {
         this.badgeRepository = badgeRepository;
     }
 
-    public Badge findBadgeById(Long id)
-    {
+    public Badge findBadgeById(Long id) {
         return badgeRepository.findBadgeById(id);
     }
 

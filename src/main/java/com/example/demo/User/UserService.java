@@ -2,6 +2,7 @@ package com.example.demo.User;
 
 import com.example.demo.badge.Badge;
 import com.example.demo.badge.BadgeRepository;
+import com.example.demo.util.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,7 @@ public class UserService {
                     badgeOptional.ifPresent(badgesList::add);
                 }
         );
+        userDTO.setRole(Role.USER);
         userRepository.save(userDTO.convertToUser(badgesList));
     }
 

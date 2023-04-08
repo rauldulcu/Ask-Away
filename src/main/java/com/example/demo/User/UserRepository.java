@@ -11,7 +11,6 @@ import java.util.List;
 @Transactional
 public interface UserRepository extends CrudRepository<User, Long> {
     User findUserByEmail(String email);
-    //List<User> findAll(PageRequest pageRequest);
 
     List<User> findTop3ByOrderByTokensDesc();
 }
