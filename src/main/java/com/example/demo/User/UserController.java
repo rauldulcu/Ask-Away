@@ -42,4 +42,5 @@ public class UserController {
     public User getUserByEmail(@RequestParam String email) {
         return userService.findUserByEmail(email);
     }
+
 }

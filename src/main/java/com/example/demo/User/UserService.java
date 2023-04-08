@@ -3,7 +3,9 @@ package com.example.demo.User;
 import com.example.demo.badge.Badge;
 import com.example.demo.badge.BadgeRepository;
 import com.example.demo.util.Role;
+import com.example.demo.util.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -46,6 +48,7 @@ public class UserService {
     }
 
     public User findUserByEmail(String email) {
-        return userRepository.findUserByEmail(email);
+        return userRepository.findUserByEmail(email).orElseThrow(() ->
+                new EntityNotFoundException("No user found with this email", HttpStatus.BAD_REQUEST));
     }
 }

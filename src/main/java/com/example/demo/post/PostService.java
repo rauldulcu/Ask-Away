@@ -2,7 +2,10 @@ package com.example.demo.post;
 
 import com.example.demo.User.User;
 import com.example.demo.User.UserRepository;
+import com.example.demo.util.exception.ConditionsNotMetException;
+import com.example.demo.util.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,10 +27,18 @@ public class PostService {
         return list.stream().map(Post::convertToDTO).toList();
     }
 
+    public Post getPostById(Long id) {
+        Optional<Post> postOptional = postRepository.findPostById(id);
+        if (postOptional.isPresent()) return postOptional.get();
+        else throw new EntityNotFoundException("No post found with this ID", HttpStatus.BAD_REQUEST);
+    }
+
     public void savePost(PostDTO postDTO) {
-        Optional<User> authorOptional = userRepository.findById(postDTO.getAuthorId());
-        if (authorOptional.isPresent() && hasEnoughTokens(authorOptional.get(), postDTO))
-            postRepository.save(postDTO.convertToPost(authorOptional.get()));
+        User author = userRepository.findById(postDTO.getAuthorId()).orElseThrow(() ->
+                new EntityNotFoundException("No user with this ID found", HttpStatus.BAD_REQUEST));
+        if (!hasEnoughTokens(author, postDTO))
+            throw new ConditionsNotMetException("Not enough tokens", HttpStatus.BAD_REQUEST);
+        postRepository.save(postDTO.convertToPost(author));
     }
 
     private boolean hasEnoughTokens(User author, PostDTO postDTO) {
@@ -35,11 +46,14 @@ public class PostService {
     }
 
     public void deletePost(Long id) {
+        if (!postRepository.existsById(id))
+            throw new EntityNotFoundException("No post with this ID found", HttpStatus.BAD_REQUEST);
         postRepository.deleteById(id);
     }
 
     public void updatePost(PostDTO postDTO) {
-        Optional<User> authorOptional = userRepository.findById(postDTO.getAuthorId());
-        authorOptional.ifPresent(user -> postRepository.save(postDTO.convertToPost(user)));
+        User author = userRepository.findById(postDTO.getAuthorId()).orElseThrow(() ->
+                new EntityNotFoundException("No user with this ID found", HttpStatus.BAD_REQUEST));
+        postRepository.save(postDTO.convertToPost(author));
     }
 }

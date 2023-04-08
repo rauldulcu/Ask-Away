@@ -4,8 +4,6 @@ import com.example.demo.User.User;
 import com.example.demo.post.Post;
 import lombok.Builder;
 import lombok.Data;
-import org.hibernate.annotations.CollectionId;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.sql.Date;
 import java.sql.Time;

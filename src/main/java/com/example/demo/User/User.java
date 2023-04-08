@@ -2,8 +2,10 @@ package com.example.demo.User;
 
 import com.example.demo.badge.Badge;
 import com.example.demo.util.Role;
-import lombok.*;
-import org.hibernate.annotations.Fetch;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -23,6 +25,7 @@ public class User implements Serializable {
     @Column(name = "ID", nullable = false)
     private Long id;
     private Role role;
+    @Column(unique = true)
     private String userName;
     private String password;
     @Email(message = "Must be a valid email address")

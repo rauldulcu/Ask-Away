@@ -21,6 +21,11 @@ public class PostController {
         return postService.getAllPosts();
     }
 
+    @GetMapping("/byId")
+    public Post getPostById(@RequestParam Long id) {
+        return postService.getPostById(id);
+    }
+
     @PostMapping
     public void savePost(@RequestBody PostDTO postDTO) {
         postService.savePost(postDTO);

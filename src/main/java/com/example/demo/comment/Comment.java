@@ -8,8 +8,8 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.sql.Date;
+import java.sql.Time;
 
 @Entity
 @Table

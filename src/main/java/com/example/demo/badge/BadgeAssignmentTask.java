@@ -13,7 +13,7 @@ public class BadgeAssignmentTask {
         this.badgeService = badgeService;
     }
 
-    @Scheduled(cron = "0 45 * * * ?")
+    @Scheduled(cron = "0 17 * * * ?")
     public void assignBadges() {
         badgeService.assignBadges();
     }

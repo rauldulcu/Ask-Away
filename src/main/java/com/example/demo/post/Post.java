@@ -1,7 +1,10 @@
 package com.example.demo.post;
 
 import com.example.demo.User.User;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Date;
