@@ -2,55 +2,41 @@ package com.example.demo.badge;
 
 import com.example.demo.User.User;
 import com.example.demo.User.UserRepository;
+import com.example.demo.season.Season;
+import com.example.demo.season.SeasonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class BadgeService {
     private final UserRepository userRepository;
     private final BadgeRepository badgeRepository;
+    private final SeasonRepository seasonRepository;
 
     @Autowired
-    public BadgeService(UserRepository userRepository, BadgeRepository badgeRepository) {
+    public BadgeService(UserRepository userRepository, BadgeRepository badgeRepository, SeasonRepository seasonRepository) {
         this.userRepository = userRepository;
         this.badgeRepository = badgeRepository;
+        this.seasonRepository = seasonRepository;
     }
 
     public Badge findBadgeById(Long id) {
         return badgeRepository.findBadgeById(id);
     }
 
-    public void assignBadges() {
-        List<User> topThreeUsers = userRepository.findTop3ByOrderByTokensDesc();
-        for (int i = 0; i < 3; i++) {
-            assigningAction(topThreeUsers.get(i), i);
+    public List<Badge> createBadges(Season season) {
+        List<Badge> badges = new ArrayList<>();
+        for (int i = 1; i <= 3; i++) {
+            Badge badge = badgeRepository.save(new Badge(season, i));
+            badges.add(badge);
+
         }
-    }
 
-    private void assigningAction(User user, int i) {
-        user.addBadge(createBadge(i));
-        user.setUserTitle(getTitle(i));
-        userRepository.save(user);
-    }
-
-    private Badge createBadge(int i) {
-        return badgeRepository.save(new Badge(getMonth(), getYear(), i + 1));
-    }
-
-    private String getTitle(int place) {
-        return getMonth() + " " + getYear() + " #" + (place + 1);
-    }
-
-    private Month getMonth() {
-        return LocalDate.now().getMonth();
-    }
-
-    private Year getYear() {
-        return Year.of(LocalDate.now().getYear());
+        return badges;
     }
 }

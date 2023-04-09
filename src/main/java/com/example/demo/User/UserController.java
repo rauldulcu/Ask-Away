@@ -34,8 +34,8 @@ public class UserController {
     }
 
     @PutMapping
-    public void updateUser(@RequestBody User user) {
-        userService.updateUser(user);
+    public void updateUser(@RequestBody UserDTO userDTO) {
+        userService.updateUser(userDTO);
     }
 
     @GetMapping("/byEmail")

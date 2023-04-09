@@ -39,6 +39,8 @@ public class PostService {
         if (!hasEnoughTokens(author, postDTO))
             throw new ConditionsNotMetException("Not enough tokens", HttpStatus.BAD_REQUEST);
         postRepository.save(postDTO.convertToPost(author));
+        author.setTokens(author.getTokens() - postDTO.getRewardTokens());
+        userRepository.save(author);
     }
 
     private boolean hasEnoughTokens(User author, PostDTO postDTO) {

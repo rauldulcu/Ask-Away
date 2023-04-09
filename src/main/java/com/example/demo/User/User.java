@@ -32,7 +32,7 @@ public class User implements Serializable {
     @Column(unique = true)
     private String email;
     private int tokens;
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Badge> badges;
     @Nullable
     private String userTitle;
