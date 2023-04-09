@@ -1,6 +1,6 @@
 package com.example.demo.task;
 
-import com.example.demo.User.UserService;
+import com.example.demo.user.UserService;
 import com.example.demo.badge.Badge;
 import com.example.demo.badge.BadgeService;
 import com.example.demo.season.SeasonService;

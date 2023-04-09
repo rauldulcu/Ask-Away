@@ -1,4 +1,4 @@
-package com.example.demo.User;
+package com.example.demo.user;
 
 import com.example.demo.badge.Badge;
 import com.example.demo.util.Role;
@@ -12,6 +12,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.List;
+
+import static com.example.demo.user.UserService.passwordEncoder;
 
 @Entity
 @Table
@@ -37,10 +39,6 @@ public class User implements Serializable {
     @Nullable
     private String userTitle;
 
-    public void addBadge(Badge badge) {
-        this.badges.add(badge);
-    }
-
     public UserDTO convertToDTO() {
         return UserDTO.builder()
                 .id(this.id)
@@ -52,5 +50,25 @@ public class User implements Serializable {
                 .badgesId(badges.stream().map(Badge::getId).toList())
                 .userTitle(this.userTitle)
                 .build();
+    }
+
+    public User createAccount(UserDTO userDTO) {
+        return User.builder()
+                .role(Role.USER)
+                .userName(userDTO.getUserName())
+                .password(passwordEncoder().encode(userDTO.getPassword()))
+                .email(userDTO.getEmail())
+                .tokens(50)
+                .badges(null)
+                .userTitle(null)
+                .build();
+    }
+
+    public void addBadge(Badge badge) {
+        this.badges.add(badge);
+    }
+
+    public void addTokens(int tokens) {
+        this.tokens += tokens;
     }
 }

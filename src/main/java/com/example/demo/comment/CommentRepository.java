@@ -10,4 +10,8 @@ import java.util.List;
 @Transactional
 public interface CommentRepository extends CrudRepository<Comment, Long> {
     List<Comment> getAllCommentsByPost_Id(Long id);
+
+    void deleteAllByPost_Id(Long id);
+
+    void deleteAllByAuthor_Id(Long id);
 }

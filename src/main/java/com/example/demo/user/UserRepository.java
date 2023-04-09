@@ -1,4 +1,4 @@
-package com.example.demo.User;
+package com.example.demo.user;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -19,4 +19,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     List<Integer> findTop3DistinctTokenValues();
 
     List<User> findUsersByTokens(Integer tokenNumber);
+
+    Optional<Object> findUserByUserName(String username);
 }

@@ -32,7 +32,7 @@ public class PostController {
     }
 
     @DeleteMapping("/{id}")
-    @Transactional
+    //@Transactional
     public void deletePost(@PathVariable("id") Long id) {
         postService.deletePost(id);
     }

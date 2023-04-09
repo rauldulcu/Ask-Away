@@ -1,7 +1,8 @@
 package com.example.demo.post;
 
-import com.example.demo.User.User;
-import com.example.demo.User.UserRepository;
+import com.example.demo.comment.CommentRepository;
+import com.example.demo.user.User;
+import com.example.demo.user.UserRepository;
 import com.example.demo.util.exception.ConditionsNotMetException;
 import com.example.demo.util.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,13 @@ import java.util.Optional;
 public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
 
     @Autowired
-    public PostService(PostRepository postRepository, UserRepository userRepository) {
+    public PostService(PostRepository postRepository, UserRepository userRepository, CommentRepository commentRepository) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
+        this.commentRepository = commentRepository;
     }
 
     public List<PostDTO> getAllPosts() {
@@ -50,6 +53,7 @@ public class PostService {
     public void deletePost(Long id) {
         if (!postRepository.existsById(id))
             throw new EntityNotFoundException("No post with this ID found", HttpStatus.BAD_REQUEST);
+        commentRepository.deleteAllByPost_Id(id);
         postRepository.deleteById(id);
     }
 

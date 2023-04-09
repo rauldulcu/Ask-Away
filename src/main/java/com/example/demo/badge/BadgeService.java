@@ -1,14 +1,11 @@
 package com.example.demo.badge;
 
-import com.example.demo.User.User;
-import com.example.demo.User.UserRepository;
+import com.example.demo.user.UserRepository;
 import com.example.demo.season.Season;
 import com.example.demo.season.SeasonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

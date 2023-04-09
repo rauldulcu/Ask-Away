@@ -1,4 +1,4 @@
-package com.example.demo.User;
+package com.example.demo.user;
 
 import com.example.demo.badge.Badge;
 import com.example.demo.util.Role;
