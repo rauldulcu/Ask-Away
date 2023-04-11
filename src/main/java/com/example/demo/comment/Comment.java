@@ -1,13 +1,11 @@
 package com.example.demo.comment;
 
-import com.example.demo.user.User;
 import com.example.demo.post.Post;
+import com.example.demo.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Date;

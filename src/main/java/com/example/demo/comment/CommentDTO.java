@@ -1,7 +1,7 @@
 package com.example.demo.comment;
 
-import com.example.demo.user.User;
 import com.example.demo.post.Post;
+import com.example.demo.user.User;
 import lombok.Builder;
 import lombok.Data;
 

@@ -1,6 +1,5 @@
 package com.example.demo.season;
 
-import com.example.demo.season.Season;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -3,7 +3,6 @@ package com.example.demo.post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -17,8 +16,8 @@ public class PostController {
     }
 
     @GetMapping
-    public List<PostDTO> getAllPosts() {
-        return postService.getAllPosts();
+    public List<PostDTO> getAllPosts(@RequestParam Integer pageNumber, @RequestParam Integer elementsPerPage) {
+        return postService.getAllPosts(pageNumber,elementsPerPage);
     }
 
     @GetMapping("/byId")

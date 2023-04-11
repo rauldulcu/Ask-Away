@@ -18,8 +18,8 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserDTO> getAllUsers() {
-        return userService.getAllUsers();
+    public List<UserDTO> getAllUsers(@RequestParam Integer pageNumber, @RequestParam Integer elementsPerPage) {
+        return userService.getAllUsers(pageNumber,elementsPerPage);
     }
 
     @PostMapping

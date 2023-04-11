@@ -6,6 +6,10 @@ import com.example.demo.user.UserRepository;
 import com.example.demo.util.exception.ConditionsNotMetException;
 import com.example.demo.util.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +29,9 @@ public class PostService {
         this.commentRepository = commentRepository;
     }
 
-    public List<PostDTO> getAllPosts() {
-        List<Post> list = (List<Post>) postRepository.findAll();
+    public List<PostDTO> getAllPosts(Integer pageNumber, Integer elementsPerPage) {
+        Pageable pageable= PageRequest.of(pageNumber,elementsPerPage);
+        List<Post> list =  postRepository.findAll(pageable);
         return list.stream().map(Post::convertToDTO).toList();
     }
 

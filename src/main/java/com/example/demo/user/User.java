@@ -11,6 +11,8 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.example.demo.user.UserService.passwordEncoder;
@@ -39,6 +41,12 @@ public class User implements Serializable {
     @Nullable
     private String userTitle;
 
+    public User(Long id, int tokens, List<Badge> badges) {
+        this.id = id;
+        this.tokens = tokens;
+        this.badges = badges;
+    }
+
     public UserDTO convertToDTO() {
         return UserDTO.builder()
                 .id(this.id)
@@ -47,7 +55,7 @@ public class User implements Serializable {
                 .password(this.password)
                 .email(this.email)
                 .tokens(this.tokens)
-                .badgesId(badges.stream().map(Badge::getId).toList())
+                .badgesId( badges.stream().map(Badge::getId).toList())
                 .userTitle(this.userTitle)
                 .build();
     }
@@ -59,7 +67,7 @@ public class User implements Serializable {
                 .password(passwordEncoder().encode(userDTO.getPassword()))
                 .email(userDTO.getEmail())
                 .tokens(50)
-                .badges(null)
+                .badges(new ArrayList<>())
                 .userTitle(null)
                 .build();
     }

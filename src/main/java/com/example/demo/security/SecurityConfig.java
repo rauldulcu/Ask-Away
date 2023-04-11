@@ -1,12 +1,7 @@
 package com.example.demo.security;
 
-import com.example.demo.util.Role;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -27,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/users/byUsername").permitAll()
                 .antMatchers(HttpMethod.POST, "/posts").permitAll()
                 .antMatchers(HttpMethod.GET, "/posts").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/posts/**").access("@postAuthorAccessControl.checkPostAuthor(#postId)")
+                .antMatchers(HttpMethod.DELETE, "/posts/{id}").access("hasRole('ADMIN') or (hasRole('USER') and #post.user.username == authentication.principal.username)")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

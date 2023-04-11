@@ -1,11 +1,14 @@
 package com.example.demo.comment;
 
-import com.example.demo.user.User;
-import com.example.demo.user.UserRepository;
 import com.example.demo.post.Post;
 import com.example.demo.post.PostRepository;
+import com.example.demo.user.User;
+import com.example.demo.user.UserRepository;
 import com.example.demo.util.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +38,9 @@ public class CommentService {
         }
     }
 
-    public List<CommentDTO> getAllCommentsFromAPost(Long id) {
-        return (commentRepository.getAllCommentsByPost_Id(id).stream().map(Comment::convertToDTO).toList());
+    public List<CommentDTO> getAllCommentsFromAPost(Long id, Integer pageNumber, Integer elementsPerPage) {
+        Pageable pageable = PageRequest.of(pageNumber,elementsPerPage);
+        return (commentRepository.getAllCommentsByPost_Id(id,pageable).stream().map(Comment::convertToDTO).toList());
     }
 
     public void updateComment(CommentDTO commentDTO) {
@@ -47,8 +51,7 @@ public class CommentService {
         commentRepository.save(commentDTO.convertToComment(post, author));
     }
 
-    public void deleteComment(Long id)
-    {
+    public void deleteComment(Long id) {
         if (!commentRepository.existsById(id))
             throw new EntityNotFoundException("No comment with this ID found", HttpStatus.BAD_REQUEST);
         commentRepository.deleteById(id);

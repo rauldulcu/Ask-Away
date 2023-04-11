@@ -6,6 +6,8 @@ import com.example.demo.comment.CommentRepository;
 import com.example.demo.post.PostRepository;
 import com.example.demo.util.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,8 +36,9 @@ public class UserService {
         return new BCryptPasswordEncoder(11);
     }
 
-    public List<UserDTO> getAllUsers() {
-        List<User> list = (List<User>) userRepository.findAll();
+    public List<UserDTO> getAllUsers(Integer pageNumber, Integer elementsPerPage) {
+        Pageable pageable = PageRequest.of(pageNumber,elementsPerPage);
+        List<User> list = userRepository.findAll(pageable);
         return list.stream().map(User::convertToDTO).toList();
     }
 

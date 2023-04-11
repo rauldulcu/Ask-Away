@@ -1,6 +1,7 @@
 package com.example.demo.badge;
 
 import com.example.demo.season.Season;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @Table
 @Data
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class Badge implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

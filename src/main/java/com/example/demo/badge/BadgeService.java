@@ -1,8 +1,8 @@
 package com.example.demo.badge;
 
-import com.example.demo.user.UserRepository;
 import com.example.demo.season.Season;
 import com.example.demo.season.SeasonRepository;
+import com.example.demo.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

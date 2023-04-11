@@ -3,7 +3,6 @@ package com.example.demo.comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -23,8 +22,8 @@ public class CommentController {
     }
 
     @GetMapping("/byPost")
-    public List<CommentDTO> getAllCommentsFromAPost(@RequestParam Long id) {
-        return commentService.getAllCommentsFromAPost(id);
+    public List<CommentDTO> getAllCommentsFromAPost(@RequestParam Long id, @RequestParam Integer pageNumber, @RequestParam Integer elementsPerPage) {
+        return commentService.getAllCommentsFromAPost(id,pageNumber,elementsPerPage);
     }
 
     @PutMapping

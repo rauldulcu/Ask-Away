@@ -2,13 +2,10 @@ package com.example.demo.security;
 
 import com.example.demo.post.Post;
 import com.example.demo.post.PostRepository;
-import com.example.demo.user.UserRepository;
 import com.example.demo.util.Role;
 import com.example.demo.util.exception.EntityNotFoundException;
-import com.example.demo.util.exception.ForbiddenActionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
