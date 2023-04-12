@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/users/byUsername").permitAll()
                 .antMatchers(HttpMethod.POST, "/posts").permitAll()
                 .antMatchers(HttpMethod.GET, "/posts").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/posts/{id}").access("hasRole('ADMIN') or (hasRole('USER') and #post.user.username == authentication.principal.username)")
+                //.antMatchers(HttpMethod.DELETE, "/posts/{id}").access("hasRole('ADMIN') or (hasRole('USER') and #post.user.username == authentication.principal.username)")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

@@ -12,7 +12,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static com.example.demo.user.UserService.passwordEncoder;
@@ -55,7 +54,7 @@ public class User implements Serializable {
                 .password(this.password)
                 .email(this.email)
                 .tokens(this.tokens)
-                .badgesId( badges.stream().map(Badge::getId).toList())
+                .badgesId(badges.stream().map(Badge::getId).toList())
                 .userTitle(this.userTitle)
                 .build();
     }
