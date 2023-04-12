@@ -1,5 +1,6 @@
 package com.example.demo.security;
 
+import com.example.demo.util.Role;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,7 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/users/byUsername").permitAll()
                 .antMatchers(HttpMethod.POST, "/posts").permitAll()
                 .antMatchers(HttpMethod.GET, "/posts").permitAll()
-                //.antMatchers(HttpMethod.DELETE, "/posts/{id}").access("hasRole('ADMIN') or (hasRole('USER') and #post.user.username == authentication.principal.username)")
+                .antMatchers(HttpMethod.DELETE, "/posts/{id}").hasAnyAuthority(Role.ADMIN.toString(),Role.MODERATOR.toString())
+                .antMatchers(HttpMethod.DELETE, "/comments/{id}").hasAnyAuthority(Role.ADMIN.toString(),Role.MODERATOR.toString())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
